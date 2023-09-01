@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 
 const mongoose = require("mongoose");
 mongoose
-  // .connect("mongodb+srv://yoo128:1234@cluster0.yj7sq9q.mongodb.net/?retryWrites=true&w=majority")
   .connect(config.mongoURL)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log(err));

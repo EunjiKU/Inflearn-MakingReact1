@@ -84,10 +84,6 @@ userSchema.methods.generateToken = function(cb) {
   }).catch((err) => {
     return cb(err)
   })
-  // user.save(function(err, user) {
-  //   if(err) return cb(err)
-  //   cb(null, user)
-  // })
 }
 
 const User = mongoose.model('User', userSchema);

@@ -8,7 +8,6 @@ const { User } = require("./models/User");
 
 // client에서 오는 정보를 분석해서 가져옴
 // application/x-www-form-urlencoded
-// ❗ app.use(bodyParser.urlencoded({extanded: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 // application/json
 app.use(bodyParser.json());

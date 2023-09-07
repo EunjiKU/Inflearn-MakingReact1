@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   res.send('Hello Worlds!')
 })
 
-app.post('api/users/register',(req, res)=>{   
+app.post('/register',(req, res)=>{   
   //회원가입할 때 필요한 정보들을 client에서 가져오면,
   //그 정보들을 DB에 넣어준다.
   const user = new User(req.body);
@@ -40,7 +40,7 @@ app.post('api/users/register',(req, res)=>{
   });
 })
 
-app.post('api/users/login', (req, res) => {
+app.post('/login', (req, res) => {
   // 요청된 이메일을 데이터베이서 있는지 찾는다
   User.findOne({ email: req.body.email })
     .then((user) => {
@@ -72,7 +72,7 @@ app.post('api/users/login', (req, res) => {
     })
 })
 
-app.get('api/users/auth', auth, (req, res) => {
+app.get('/auth', auth, (req, res) => {
   // 여기까지 미들웨어를 통과해 왔다는 얘기는
   // Authentication이 True라는 말
   res.status(200).json({
@@ -86,6 +86,38 @@ app.get('api/users/auth', auth, (req, res) => {
     role: req.user.role,
     image: req.user.image
   })
+})
+
+app.get('/logout', auth, (req, res) => {
+  // User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
+  //   .then((user) => {
+  //     // if (!user) {
+  //     //   return res.json({ success: false, message: "User not found" });
+  //     // }
+  //     return res.status(200).send({
+  //       success: true,
+  //       // message: "Logout successful",
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     // return res.status(500).json({ success: false, error: err.message });
+  //     return res.json({ success: false, err });
+  //   });
+  // 2️⃣
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
+    .then((user) => {
+        return res.status(200).send({
+            success: true
+          })
+        })
+        .catch((err) => res.json({ success: false, err }))
+  // 1️⃣
+  // User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+  //   if(err) return res.json({ success: false, err });
+  //   return res.status(200).send({
+  //     success: true
+  //   })
+  // })
 })
 
 app.listen(port, () => {

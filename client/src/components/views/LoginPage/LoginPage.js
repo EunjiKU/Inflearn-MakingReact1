@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginUser } from "../../../_actions/user_actions";
 
 function LoginPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -17,19 +18,24 @@ function LoginPage() {
   }
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(Email, Password);
-
+    
     let body = {
       email: Email,
       password: Password
     }
+    console.log(body);
 
     dispatch(loginUser(body))
-
-    // axios.post('/login', body)
-    //   .then(response => {
-    //     console.log("성공");
-    //   })
+      .then(response => {
+        if(response.payload.loginSuccess) {
+          console.log("로그인완료!!!");
+          console.log(response.payload.loginSuccess);
+          navigate('/')
+        } else {
+          alert('Error!');
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   return (

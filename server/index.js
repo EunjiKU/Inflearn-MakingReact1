@@ -29,7 +29,7 @@ app.get('/api/hello', (req, res) => {
   res.send("안녕하세요! 성공했네요!");
 })
 
-app.post('/register',(req, res)=>{   
+app.post('/api/register',(req, res)=>{   
   //회원가입할 때 필요한 정보들을 client에서 가져오면,
   //그 정보들을 DB에 넣어준다.
   const user = new User(req.body);
@@ -44,7 +44,7 @@ app.post('/register',(req, res)=>{
   });
 })
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   // 요청된 이메일을 데이터베이서 있는지 찾는다
   User.findOne({ email: req.body.email })
     .then((user) => {
@@ -76,7 +76,7 @@ app.post('/login', (req, res) => {
     })
 })
 
-app.get('/auth', auth, (req, res) => {
+app.get('/api/auth', auth, (req, res) => {
   // 여기까지 미들웨어를 통과해 왔다는 얘기는
   // Authentication이 True라는 말
   res.status(200).json({
@@ -92,7 +92,7 @@ app.get('/auth', auth, (req, res) => {
   })
 })
 
-app.get('/logout', auth, (req, res) => {
+app.get('/api/logout', auth, (req, res) => {
   // User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
   //   .then((user) => {
   //     // if (!user) {

@@ -4,7 +4,7 @@ import {
 } from './types';
 
 export function loginUser(dataToSubmit) {
-  const request = axios.post('/login', dataToSubmit)
+  const request = axios.post('/api/login', dataToSubmit)
       .then(response => response.data)
 
   return {

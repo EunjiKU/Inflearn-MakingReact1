@@ -23,7 +23,6 @@ function LoginPage() {
       email: Email,
       password: Password
     }
-    console.log(body);
 
     dispatch(loginUser(body))
       .then(response => {
